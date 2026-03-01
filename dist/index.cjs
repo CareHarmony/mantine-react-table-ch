@@ -1992,7 +1992,7 @@ const MRT_FilterOptionMenu = ({ header, onSelect, table, }) => {
             : (!globalFilterModeOptions ||
                 globalFilterModeOptions.includes(filterOption.option)) &&
                 ['contains', 'fuzzy', 'startsWith'].includes(filterOption.option));
-        if (filterOptions[filterOptions.length - 1].divider) {
+        if (filterOptions.length && filterOptions[filterOptions.length - 1].divider) {
             filterOptions[filterOptions.length - 1].divider = false;
         }
         return filterOptions;
