@@ -1,7 +1,6 @@
-import * as react_jsx_runtime from 'react/jsx-runtime';
-import { PaginationProps, ActionIconProps, UnstyledButtonProps, SelectProps, TextInputProps, AutocompleteProps, CheckboxProps, MultiSelectProps, RangeSliderProps, TableTdProps, TableThProps, BoxProps, ModalProps, HighlightProps, LoadingOverlayProps, PaperProps, ProgressProps, RadioProps, SwitchProps, SkeletonProps, TableTbodyProps, TableTrProps, TableTfootProps, TableTheadProps, TableProps, BadgeProps, AlertProps, FlexProps, MenuProps, MantineTheme } from '@mantine/core';
 import * as react from 'react';
-import { Ref, HTMLProps, RefObject, Dispatch, SetStateAction, ReactNode, DragEventHandler, MouseEvent, ChangeEvent } from 'react';
+import { Ref, HTMLProps, RefObject, Dispatch, SetStateAction, ReactNode, DragEventHandler, MouseEvent, ChangeEvent, JSX } from 'react';
+import { ModalProps, PaginationProps, ActionIconProps, UnstyledButtonProps, SelectProps, TextInputProps, AutocompleteProps, CheckboxProps, MultiSelectProps, RangeSliderProps, TableTdProps, TableThProps, ScrollAreaProps, TableScrollContainerProps, BoxProps, HighlightProps, LoadingOverlayProps, PaperProps, ProgressProps, RadioProps, SwitchProps, SkeletonProps, TableTbodyProps, TableTrProps, TableTfootProps, TableTheadProps, TableProps, BadgeProps, AlertProps, FlexProps, MenuProps, MantineTheme } from '@mantine/core';
 import * as _tanstack_react_table from '@tanstack/react-table';
 import { Row, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ColumnSizingInfoState, ColumnSizingState, ExpandedState, GroupingState, PaginationState, RowSelectionState, SortingState, Updater, VisibilityState, AccessorFn, DeepKeys, DeepValue, Table, TableState, ColumnDef, Column, Header, HeaderGroup, Cell, AggregationFn, SortingFn, FilterFn, OnChangeFn, TableOptions, RowPinningPosition, Renderable } from '@tanstack/react-table';
 import { VirtualItem, VirtualizerOptions, Virtualizer } from '@tanstack/react-virtual';
@@ -23,59 +22,59 @@ declare const MRT_AggregationFns: {
 declare const MRT_FilterFns: {
     between: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValues: [number | string, number | string]): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     betweenInclusive: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValues: [number | string, number | string]): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     contains: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     empty: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, _filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     endsWith: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     equals: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     fuzzy: {
         <TData extends MRT_RowData>(row: Row<TData>, columnId: string, filterValue: number | string, addMeta: (item: RankingInfo) => void): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     greaterThan: {
-        <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        <TData extends MRT_RowData>(row: Row<TData>, id: string, rawFilterValue: number | string): boolean;
+        autoRemove: (val: any) => boolean;
     };
     greaterThanOrEqualTo: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     lessThan: {
-        <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        <TData extends MRT_RowData>(row: Row<TData>, id: string, rawFilterValue: number | string): boolean;
+        autoRemove: (val: any) => boolean;
     };
     lessThanOrEqualTo: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     notEmpty: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, _filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     notEquals: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     startsWith: {
         <TData extends MRT_RowData>(row: Row<TData>, id: string, filterValue: number | string): boolean;
-        autoRemove(val: any): boolean;
+        autoRemove: (val: any) => boolean;
     };
     includesString: _tanstack_react_table.FilterFn<any>;
     includesStringSensitive: _tanstack_react_table.FilterFn<any>;
@@ -111,9 +110,13 @@ type Xor<A, B> = Prettify<{
 } & B> | Prettify<{
     [k in keyof B]?: never;
 } & A>;
+type HTMLDataAttributes = {
+    [key: `data-${string}`]: unknown;
+};
 type HTMLPropsRef<T extends HTMLElement> = {
-    ref?: Ref<T> | null;
-} & Omit<HTMLProps<T>, 'color' | 'data' | 'label' | 'ref' | 'size' | 'style' | 'type'>;
+    ref?: null | Ref<T>;
+} & HTMLDataAttributes & Omit<HTMLProps<T>, 'color' | 'data' | 'label' | 'ref' | 'size' | 'style' | 'type'>;
+type MRT_ModalProps = Omit<HTMLPropsRef<HTMLDivElement>, 'title'> & Partial<ModalProps>;
 type MantineShade = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 type MRT_PaginationProps = {
     rowsPerPageOptions?: string[];
@@ -277,6 +280,7 @@ type MRT_TableInstance<TData extends MRT_RowData> = {
         editInputRefs: RefObject<Record<string, HTMLInputElement>>;
         filterInputRefs: RefObject<Record<string, HTMLInputElement>>;
         lastSelectedRowId: RefObject<null | string>;
+        scrollAreaViewportRef: RefObject<HTMLDivElement | null>;
         searchInputRef: RefObject<HTMLInputElement | null>;
         tableContainerRef: RefObject<HTMLDivElement | null>;
         tableFooterRef: RefObject<HTMLTableSectionElement | null>;
@@ -588,6 +592,11 @@ type MRT_CreateTableFeature<TData extends MRT_RowData, TFeature = any> = (table:
  * See the full props list on the official docs site:
  * @link https://www.mantine-react-table.com/docs/api/table-options
  */
+/**
+ * Props for the optional `Table.ScrollContainer` wrapper (`withScrollArea`).
+ * Extra `ScrollArea` props pass through to the underlying Mantine `ScrollArea`.
+ */
+type MRT_ScrollAreaProps = HTMLPropsRef<HTMLDivElement> & Partial<Omit<ScrollAreaProps, 'type'>> & Partial<TableScrollContainerProps>;
 type MRT_TableOptions<TData extends MRT_RowData> = {
     columnFilterDisplayMode?: 'custom' | 'popover' | 'subheader';
     columnFilterModeOptions?: Array<LiteralUnion<MRT_FilterOption & string>> | null;
@@ -694,7 +703,7 @@ type MRT_TableOptions<TData extends MRT_RowData> = {
     mantineCreateRowModalProps?: ((props: {
         row: MRT_Row<TData>;
         table: MRT_TableInstance<TData>;
-    }) => HTMLPropsRef<HTMLDivElement> & Partial<ModalProps>) | (HTMLPropsRef<HTMLDivElement> & Partial<ModalProps>);
+    }) => MRT_ModalProps) | MRT_ModalProps;
     mantineDetailPanelProps?: ((props: {
         row: MRT_Row<TData>;
         table: MRT_TableInstance<TData>;
@@ -702,7 +711,7 @@ type MRT_TableOptions<TData extends MRT_RowData> = {
     mantineEditRowModalProps?: ((props: {
         row: MRT_Row<TData>;
         table: MRT_TableInstance<TData>;
-    }) => HTMLPropsRef<HTMLDivElement> & Partial<ModalProps>) | (HTMLPropsRef<HTMLDivElement> & Partial<ModalProps>);
+    }) => MRT_ModalProps) | MRT_ModalProps;
     mantineEditSelectProps?: ((props: {
         cell: MRT_Cell<TData, MRT_CellValue>;
         column: MRT_Column<TData, MRT_CellValue>;
@@ -775,11 +784,14 @@ type MRT_TableOptions<TData extends MRT_RowData> = {
     mantineProgressProps?: ((props: {
         isTopToolbar: boolean;
         table: MRT_TableInstance<TData>;
-    }) => HTMLPropsRef<HTMLDivElement> & ProgressProps) | (HTMLPropsRef<HTMLDivElement> & ProgressProps);
+    }) => HTMLPropsRef<HTMLDivElement> & Partial<ProgressProps>) | (HTMLPropsRef<HTMLDivElement> & Partial<ProgressProps>);
     mantineRowDragHandleProps?: ((props: {
         row: MRT_Row<TData>;
         table: MRT_TableInstance<TData>;
     }) => HTMLPropsRef<HTMLButtonElement> & Partial<ActionIconProps>) | (HTMLPropsRef<HTMLButtonElement> & Partial<ActionIconProps>);
+    mantineScrollAreaProps?: ((props: {
+        table: MRT_TableInstance<TData>;
+    }) => MRT_ScrollAreaProps) | MRT_ScrollAreaProps;
     mantineSearchTextInputProps?: ((props: {
         table: MRT_TableInstance<TData>;
     }) => HTMLPropsRef<HTMLInputElement> & Partial<TextInputProps>) | (HTMLPropsRef<HTMLInputElement> & Partial<TextInputProps>);
@@ -981,6 +993,7 @@ type MRT_TableOptions<TData extends MRT_RowData> = {
      * Manage state externally any way you want, then pass it back into MRT.
      */
     state?: Partial<MRT_TableState<TData>>;
+    withScrollArea?: boolean;
 } & Omit<Partial<TableOptions<TData>>, 'columns' | 'data' | 'defaultColumn' | 'enableRowSelection' | 'expandRowsFn' | 'getRowId' | 'globalFilterFn' | 'initialState' | 'onStateChange' | 'state'>;
 
 interface MRT_TableBodyProps<TData extends MRT_RowData> extends TableTbodyProps {
@@ -988,7 +1001,7 @@ interface MRT_TableBodyProps<TData extends MRT_RowData> extends TableTbodyProps 
     table: MRT_TableInstance<TData>;
     tableProps: Partial<TableProps>;
 }
-declare const MRT_TableBody: <TData extends MRT_RowData>({ columnVirtualizer, table, tableProps, ...rest }: MRT_TableBodyProps<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableBody: <TData extends MRT_RowData>({ columnVirtualizer, table, tableProps, ...rest }: MRT_TableBodyProps<TData>) => react.JSX.Element;
 declare const Memo_MRT_TableBody: typeof MRT_TableBody;
 
 interface Props$R<TData extends MRT_RowData, TValue = MRT_CellValue> extends TableTdProps {
@@ -1000,7 +1013,7 @@ interface Props$R<TData extends MRT_RowData, TValue = MRT_CellValue> extends Tab
     table: MRT_TableInstance<TData>;
     virtualCell?: MRT_VirtualItem;
 }
-declare const MRT_TableBodyCell: <TData extends MRT_RowData>({ cell, numRows, renderedColumnIndex, renderedRowIndex, rowRef, table, virtualCell, ...rest }: Props$R<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableBodyCell: <TData extends MRT_RowData>({ cell: cellProp, numRows, renderedColumnIndex, renderedRowIndex, rowRef, table, virtualCell, ...rest }: Props$R<TData>) => react.JSX.Element;
 declare const Memo_MRT_TableBodyCell: typeof MRT_TableBodyCell;
 
 interface Props$Q<TData extends MRT_RowData, TValue = MRT_CellValue> {
@@ -1015,7 +1028,7 @@ interface Props$P<TData extends MRT_RowData> extends TableTrProps {
     table: MRT_TableInstance<TData>;
     tableProps: Partial<TableProps>;
 }
-declare const MRT_TableBodyEmptyRow: <TData extends MRT_RowData>({ table, tableProps, ...commonRowProps }: Props$P<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableBodyEmptyRow: <TData extends MRT_RowData>({ table, tableProps, ...commonRowProps }: Props$P<TData>) => react.JSX.Element;
 
 interface Props$O<TData extends MRT_RowData> extends TableTrProps {
     columnVirtualizer?: MRT_ColumnVirtualizer;
@@ -1028,7 +1041,7 @@ interface Props$O<TData extends MRT_RowData> extends TableTrProps {
     tableProps: Partial<TableProps>;
     virtualRow?: MRT_VirtualItem;
 }
-declare const MRT_TableBodyRow: <TData extends MRT_RowData>({ children, columnVirtualizer, numRows, pinnedRowIds, renderedRowIndex, row, rowVirtualizer, table, tableProps, virtualRow, ...rest }: Props$O<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableBodyRow: <TData extends MRT_RowData>({ children, columnVirtualizer, numRows, pinnedRowIds, renderedRowIndex, row: rowProp, rowVirtualizer, table, tableProps, virtualRow, ...rest }: Props$O<TData>) => react.JSX.Element;
 declare const Memo_MRT_TableBodyRow: typeof MRT_TableBodyRow;
 
 interface Props$N<TData extends MRT_RowData> extends ActionIconProps {
@@ -1036,13 +1049,13 @@ interface Props$N<TData extends MRT_RowData> extends ActionIconProps {
     rowRef: RefObject<HTMLTableRowElement | null>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableBodyRowGrabHandle: <TData extends MRT_RowData>({ row, rowRef, table, ...rest }: Props$N<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableBodyRowGrabHandle: <TData extends MRT_RowData>({ row, rowRef, table, ...rest }: Props$N<TData>) => react.JSX.Element;
 
 interface Props$M<TData extends MRT_RowData> extends ActionIconProps {
     row: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableBodyRowPinButton: <TData extends MRT_RowData>({ row, table, ...rest }: Props$M<TData>) => react_jsx_runtime.JSX.Element | null;
+declare const MRT_TableBodyRowPinButton: <TData extends MRT_RowData>({ row, table, ...rest }: Props$M<TData>) => react.JSX.Element | null;
 
 interface Props$L<TData extends MRT_RowData> extends TableTdProps {
     parentRowRef: RefObject<HTMLTableRowElement | null>;
@@ -1053,38 +1066,38 @@ interface Props$L<TData extends MRT_RowData> extends TableTdProps {
     table: MRT_TableInstance<TData>;
     virtualRow?: MRT_VirtualItem;
 }
-declare const MRT_TableDetailPanel: <TData extends MRT_RowData>({ parentRowRef, renderedRowIndex, row, rowVirtualizer, striped, table, virtualRow, ...rest }: Props$L<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableDetailPanel: <TData extends MRT_RowData>({ parentRowRef, renderedRowIndex, row, rowVirtualizer, striped, table, virtualRow, ...rest }: Props$L<TData>) => react.JSX.Element;
 
 interface Props$K<TData extends MRT_RowData> {
     column: MRT_Column<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ColumnPinningButtons: <TData extends MRT_RowData>({ column, table, }: Props$K<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ColumnPinningButtons: <TData extends MRT_RowData>({ column, table, }: Props$K<TData>) => react.JSX.Element;
 
 interface Props$J<TData extends MRT_RowData, TValue = MRT_CellValue> extends UnstyledButtonProps {
     cell: MRT_Cell<TData, TValue>;
     children: ReactNode;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_CopyButton: <TData extends MRT_RowData>({ cell, children, table, ...rest }: Props$J<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_CopyButton: <TData extends MRT_RowData>({ cell, children, table, ...rest }: Props$J<TData>) => react.JSX.Element;
 
 interface Props$I<TData extends MRT_RowData> extends BoxProps {
     row: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
     variant?: 'icon' | 'text';
 }
-declare const MRT_EditActionButtons: <TData extends MRT_RowData>({ row, table, variant, ...rest }: Props$I<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_EditActionButtons: <TData extends MRT_RowData>({ row, table, variant, ...rest }: Props$I<TData>) => react.JSX.Element;
 
 interface Props$H<TData extends MRT_RowData> extends ActionIconProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ExpandAllButton: <TData extends MRT_RowData>({ table, ...rest }: Props$H<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ExpandAllButton: <TData extends MRT_RowData>({ table, ...rest }: Props$H<TData>) => react.JSX.Element;
 
 interface Props$G<TData extends MRT_RowData> extends ActionIconProps {
     row: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ExpandButton: <TData extends MRT_RowData>({ row, table, ...rest }: Props$G<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ExpandButton: <TData extends MRT_RowData>({ row, table, ...rest }: Props$G<TData>) => react.JSX.Element;
 
 interface Props$F<TData extends MRT_RowData> {
     actionIconProps?: ActionIconProps & HTMLPropsRef<HTMLButtonElement>;
@@ -1092,72 +1105,72 @@ interface Props$F<TData extends MRT_RowData> {
     onDragStart: DragEventHandler<HTMLButtonElement>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_GrabHandleButton: <TData extends MRT_RowData>({ actionIconProps, onDragEnd, onDragStart, table: { options: { icons: { IconGripHorizontal }, localization: { move }, }, }, }: Props$F<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_GrabHandleButton: <TData extends MRT_RowData>({ actionIconProps, onDragEnd, onDragStart, table: { options: { icons: { IconGripHorizontal }, localization: { move }, }, }, }: Props$F<TData>) => react.JSX.Element;
 
 interface Props$E<TData extends MRT_RowData> extends ActionIconProps {
     pinningPosition: RowPinningPosition;
     row: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_RowPinButton: <TData extends MRT_RowData>({ pinningPosition, row, table, ...rest }: Props$E<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_RowPinButton: <TData extends MRT_RowData>({ pinningPosition, row, table, ...rest }: Props$E<TData>) => react.JSX.Element;
 
 interface Props$D<TData extends MRT_RowData> extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ShowHideColumnsButton: <TData extends MRT_RowData>({ table, title, ...rest }: Props$D<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ShowHideColumnsButton: <TData extends MRT_RowData>({ table, title, ...rest }: Props$D<TData>) => react.JSX.Element;
 
 interface Props$C<TData extends MRT_RowData> extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToggleDensePaddingButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconBaselineDensityLarge, IconBaselineDensityMedium, IconBaselineDensitySmall, }, localization: { toggleDensity }, }, setDensity, }, title, ...rest }: Props$C<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToggleDensePaddingButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconBaselineDensityLarge, IconBaselineDensityMedium, IconBaselineDensitySmall, }, localization: { toggleDensity }, }, setDensity, }, title, ...rest }: Props$C<TData>) => react.JSX.Element;
 
 interface Props$B<TData extends MRT_RowData> extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToggleFiltersButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconFilter, IconFilterOff }, localization: { showHideFilters }, }, setShowColumnFilters, }, title, ...rest }: Props$B<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToggleFiltersButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconFilter, IconFilterOff }, localization: { showHideFilters }, }, setShowColumnFilters, }, title, ...rest }: Props$B<TData>) => react.JSX.Element;
 
 interface Props$A<TData extends MRT_RowData> extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToggleFullScreenButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconMaximize, IconMinimize }, localization: { toggleFullScreen }, }, setIsFullScreen, }, title, ...rest }: Props$A<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToggleFullScreenButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconMaximize, IconMinimize }, localization: { toggleFullScreen }, }, setIsFullScreen, }, title, ...rest }: Props$A<TData>) => react.JSX.Element;
 
 interface Props$z<TData extends MRT_RowData> extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToggleGlobalFilterButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconSearch, IconSearchOff }, localization: { showHideSearch }, }, refs: { searchInputRef }, setShowGlobalFilter, }, title, ...rest }: Props$z<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToggleGlobalFilterButton: <TData extends MRT_RowData>({ table: { getState, options: { icons: { IconSearch, IconSearchOff }, localization: { showHideSearch }, }, refs: { searchInputRef }, setShowGlobalFilter, }, title, ...rest }: Props$z<TData>) => react.JSX.Element;
 
 interface Props$y<TData extends MRT_RowData, TValue = MRT_CellValue> {
     cell: MRT_Cell<TData, TValue>;
     row: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToggleRowActionMenuButton: <TData extends MRT_RowData>({ cell, row, table, }: Props$y<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToggleRowActionMenuButton: <TData extends MRT_RowData>({ cell, row, table, }: Props$y<TData>) => react.JSX.Element;
 
 interface Props$x<TData extends MRT_RowData> extends TableTfootProps {
     columnVirtualizer?: MRT_ColumnVirtualizer;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableFooter: <TData extends MRT_RowData>({ columnVirtualizer, table, ...rest }: Props$x<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableFooter: <TData extends MRT_RowData>({ columnVirtualizer, table, ...rest }: Props$x<TData>) => react.JSX.Element;
 
 interface Props$w<TData extends MRT_RowData> extends TableThProps {
     footer: MRT_Header<TData>;
     renderedColumnIndex?: number;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableFooterCell: <TData extends MRT_RowData>({ footer, renderedColumnIndex, table, ...rest }: Props$w<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableFooterCell: <TData extends MRT_RowData>({ footer: footerProp, renderedColumnIndex, table, ...rest }: Props$w<TData>) => react.JSX.Element;
 
 interface Props$v<TData extends MRT_RowData> extends TableTrProps {
     columnVirtualizer?: MRT_ColumnVirtualizer;
     footerGroup: MRT_HeaderGroup<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableFooterRow: <TData extends MRT_RowData>({ columnVirtualizer, footerGroup, table, ...rest }: Props$v<TData>) => react_jsx_runtime.JSX.Element | null;
+declare const MRT_TableFooterRow: <TData extends MRT_RowData>({ columnVirtualizer, footerGroup, table, ...rest }: Props$v<TData>) => react.JSX.Element | null;
 
 interface Props$u<TData extends MRT_RowData> extends TableTheadProps {
     columnVirtualizer?: MRT_ColumnVirtualizer;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHead: <TData extends MRT_RowData>({ columnVirtualizer, table, ...rest }: Props$u<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHead: <TData extends MRT_RowData>({ columnVirtualizer, table, ...rest }: Props$u<TData>) => react.JSX.Element;
 
 interface Props$t<TData extends MRT_RowData> extends TableThProps {
     columnVirtualizer?: MRT_ColumnVirtualizer;
@@ -1165,45 +1178,45 @@ interface Props$t<TData extends MRT_RowData> extends TableThProps {
     renderedHeaderIndex?: number;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHeadCell: <TData extends MRT_RowData>({ columnVirtualizer, header, renderedHeaderIndex, table, ...rest }: Props$t<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadCell: <TData extends MRT_RowData>({ columnVirtualizer, header: headerProp, renderedHeaderIndex, table, ...rest }: Props$t<TData>) => react.JSX.Element;
 
 interface Props$s<TData extends MRT_RowData> extends FlexProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHeadCellFilterContainer: <TData extends MRT_RowData>({ header, table, ...rest }: Props$s<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadCellFilterContainer: <TData extends MRT_RowData>({ header, table, ...rest }: Props$s<TData>) => react.JSX.Element;
 
 interface Props$r<TData extends MRT_RowData> extends ActionIconProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHeadCellFilterLabel: <TData extends MRT_RowData>({ header, table, ...rest }: Props$r<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadCellFilterLabel: <TData extends MRT_RowData>({ header, table, ...rest }: Props$r<TData>) => react.JSX.Element;
 
 interface Props$q<TData extends MRT_RowData, TValue = MRT_CellValue> extends ActionIconProps {
     column: MRT_Column<TData, TValue>;
     table: MRT_TableInstance<TData>;
     tableHeadCellRef: RefObject<HTMLTableCellElement | null>;
 }
-declare const MRT_TableHeadCellGrabHandle: <TData extends MRT_RowData>({ column, table, tableHeadCellRef, ...rest }: Props$q<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadCellGrabHandle: <TData extends MRT_RowData>({ column, table, tableHeadCellRef, ...rest }: Props$q<TData>) => react.JSX.Element;
 
 interface Props$p<TData extends MRT_RowData> extends BoxProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHeadCellResizeHandle: <TData extends MRT_RowData>({ header, table, ...rest }: Props$p<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadCellResizeHandle: <TData extends MRT_RowData>({ header, table, ...rest }: Props$p<TData>) => react.JSX.Element;
 
 interface Props$o<TData extends MRT_RowData> extends ActionIconProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHeadCellSortLabel: <TData extends MRT_RowData>({ header, table, ...rest }: Props$o<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadCellSortLabel: <TData extends MRT_RowData>({ header, table, ...rest }: Props$o<TData>) => react.JSX.Element;
 
 interface Props$n<TData extends MRT_RowData> extends TableTrProps {
     columnVirtualizer?: MRT_ColumnVirtualizer;
     headerGroup: MRT_HeaderGroup<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableHeadRow: <TData extends MRT_RowData>({ columnVirtualizer, headerGroup, table, ...rest }: Props$n<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableHeadRow: <TData extends MRT_RowData>({ columnVirtualizer, headerGroup, table, ...rest }: Props$n<TData>) => react.JSX.Element;
 
 interface PropsTextInput<TData extends MRT_RowData, TValue = MRT_CellValue> extends TextInputProps {
     cell: MRT_Cell<TData, TValue>;
@@ -1217,56 +1230,56 @@ interface PropsMultiSelect<TData extends MRT_RowData, TValue = MRT_CellValue> ex
     cell: MRT_Cell<TData, TValue>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_EditCellTextInput: <TData extends MRT_RowData>({ cell, table, ...rest }: PropsMultiSelect<TData> | PropsSelect<TData> | PropsTextInput<TData>) => string | number | bigint | boolean | Iterable<react.ReactNode> | Promise<string | number | bigint | boolean | react.ReactPortal | react.ReactElement<unknown, string | react.JSXElementConstructor<any>> | Iterable<react.ReactNode> | null | undefined> | react_jsx_runtime.JSX.Element | null | undefined;
+declare const MRT_EditCellTextInput: <TData extends MRT_RowData>({ cell, table, ...rest }: PropsMultiSelect<TData> | PropsSelect<TData> | PropsTextInput<TData>) => string | number | bigint | boolean | Iterable<react.ReactNode> | Promise<string | number | bigint | boolean | react.ReactPortal | react.ReactElement<unknown, string | react.JSXElementConstructor<any>> | Iterable<react.ReactNode> | null | undefined> | react.JSX.Element | null | undefined;
 
 interface Props$m<TData extends MRT_RowData, TValue = MRT_CellValue> extends CheckboxProps {
     column: MRT_Column<TData, TValue>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_FilterCheckbox: <TData extends MRT_RowData>({ column, table, ...rest }: Props$m<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_FilterCheckbox: <TData extends MRT_RowData>({ column, table, ...rest }: Props$m<TData>) => react.JSX.Element;
 
 interface Props$l<TData extends MRT_RowData> extends BoxProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_FilterRangeFields: <TData extends MRT_RowData>({ header, table, ...rest }: Props$l<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_FilterRangeFields: <TData extends MRT_RowData>({ header, table, ...rest }: Props$l<TData>) => react.JSX.Element;
 
 interface Props$k<TData extends MRT_RowData> extends RangeSliderProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_FilterRangeSlider: <TData extends MRT_RowData>({ header, table, ...rest }: Props$k<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_FilterRangeSlider: <TData extends MRT_RowData>({ header, table, ...rest }: Props$k<TData>) => react.JSX.Element;
 
 interface Props$j<TData extends MRT_RowData> extends TextInputProps {
     header: MRT_Header<TData>;
     rangeFilterIndex?: number;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_FilterTextInput: <TData extends MRT_RowData>({ header, rangeFilterIndex, table, ...rest }: Props$j<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_FilterTextInput: <TData extends MRT_RowData>({ header, rangeFilterIndex, table, ...rest }: Props$j<TData>) => react.JSX.Element;
 
 interface Props$i<TData extends MRT_RowData> extends TextInputProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_GlobalFilterTextInput: <TData extends MRT_RowData>({ table, ...rest }: Props$i<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_GlobalFilterTextInput: <TData extends MRT_RowData>({ table, ...rest }: Props$i<TData>) => react.JSX.Element;
 
 interface Props$h<TData extends MRT_RowData> extends CheckboxProps {
     renderedRowIndex?: number;
     row?: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_SelectCheckbox: <TData extends MRT_RowData>({ renderedRowIndex, row, table, ...rest }: Props$h<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_SelectCheckbox: <TData extends MRT_RowData>({ renderedRowIndex, row, table, ...rest }: Props$h<TData>) => react.JSX.Element;
 
 type TableInstanceProp<TData extends MRT_RowData> = {
     table: MRT_TableInstance<TData>;
 };
 type Props$g<TData extends MRT_RowData> = Xor<TableInstanceProp<TData>, MRT_TableOptions<TData>>;
-declare const MantineReactTable: <TData extends MRT_RowData>(props: Props$g<TData>) => react_jsx_runtime.JSX.Element;
+declare const MantineReactTable: <TData extends MRT_RowData>(props: Props$g<TData>) => react.JSX.Element;
 
 interface Props$f<TData extends MRT_RowData> extends MenuProps {
     header: MRT_Header<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ColumnActionMenu: <TData extends MRT_RowData>({ header, table, ...rest }: Props$f<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ColumnActionMenu: <TData extends MRT_RowData>({ header, table, ...rest }: Props$f<TData>) => react.JSX.Element;
 
 declare const mrtFilterOptions: (localization: MRT_Localization) => MRT_InternalFilterOption[];
 interface Props$e<TData extends MRT_RowData> {
@@ -1274,19 +1287,19 @@ interface Props$e<TData extends MRT_RowData> {
     onSelect?: () => void;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_FilterOptionMenu: <TData extends MRT_RowData>({ header, onSelect, table, }: Props$e<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_FilterOptionMenu: <TData extends MRT_RowData>({ header, onSelect, table, }: Props$e<TData>) => react.JSX.Element;
 
 interface Props$d<TData extends MRT_RowData> extends ActionIconProps {
     handleEdit: (event: MouseEvent) => void;
     row: MRT_Row<TData>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_RowActionMenu: <TData extends MRT_RowData>({ handleEdit, row, table, ...rest }: Props$d<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_RowActionMenu: <TData extends MRT_RowData>({ handleEdit, row, table, ...rest }: Props$d<TData>) => react.JSX.Element;
 
 interface Props$c<TData extends MRT_RowData> {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ShowHideColumnsMenu: <TData extends MRT_RowData>({ table, }: Props$c<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ShowHideColumnsMenu: <TData extends MRT_RowData>({ table, }: Props$c<TData>) => react.JSX.Element;
 
 interface Props$b<TData extends MRT_RowData, TValue = MRT_CellValue> {
     allColumns: MRT_Column<TData>[];
@@ -1295,72 +1308,72 @@ interface Props$b<TData extends MRT_RowData, TValue = MRT_CellValue> {
     setHoveredColumn: Dispatch<SetStateAction<MRT_Column<TData> | null>>;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ShowHideColumnsMenuItems: <TData extends MRT_RowData>({ allColumns, column, hoveredColumn, setHoveredColumn, table, }: Props$b<TData>) => react_jsx_runtime.JSX.Element | null;
+declare const MRT_ShowHideColumnsMenuItems: <TData extends MRT_RowData>({ allColumns, column, hoveredColumn, setHoveredColumn, table, }: Props$b<TData>) => react.JSX.Element | null;
 
 interface Props$a<TData extends MRT_RowData> extends Partial<ModalProps> {
     open: boolean;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_EditRowModal: <TData extends MRT_RowData>({ open, table, ...rest }: Props$a<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_EditRowModal: <TData extends MRT_RowData>({ open, table, ...rest }: Props$a<TData>) => react.JSX.Element;
 
 interface Props$9<TData extends MRT_RowData> extends TableProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_Table: <TData extends MRT_RowData>({ table, ...rest }: Props$9<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_Table: <TData extends MRT_RowData>({ table, ...rest }: Props$9<TData>) => react.JSX.Element;
 
 interface Props$8<TData extends MRT_RowData> extends BoxProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TableContainer: <TData extends MRT_RowData>({ table, ...rest }: Props$8<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TableContainer: <TData extends MRT_RowData>({ table, ...rest }: Props$8<TData>) => react.JSX.Element;
 
 interface Props$7<TData extends MRT_RowData> extends PaperProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TablePaper: <TData extends MRT_RowData>({ table, ...rest }: Props$7<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TablePaper: <TData extends MRT_RowData>({ table, ...rest }: Props$7<TData>) => react.JSX.Element;
 
 interface Props$6<TData extends MRT_RowData> extends BoxProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_BottomToolbar: <TData extends MRT_RowData>({ table, ...rest }: Props$6<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_BottomToolbar: <TData extends MRT_RowData>({ table, ...rest }: Props$6<TData>) => react.JSX.Element;
 
 interface Props$5<TData extends MRT_RowData> extends Partial<ProgressProps> {
     isTopToolbar: boolean;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ProgressBar: <TData extends MRT_RowData>({ isTopToolbar, table, ...rest }: Props$5<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ProgressBar: <TData extends MRT_RowData>({ isTopToolbar, table, ...rest }: Props$5<TData>) => react.JSX.Element;
 
 interface Props$4<TData extends MRT_RowData> extends Partial<PaginationProps> {
     position?: 'bottom' | 'top';
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TablePagination: <TData extends MRT_RowData>({ position, table, ...props }: Props$4<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TablePagination: <TData extends MRT_RowData>({ position, table, ...props }: Props$4<TData>) => react.JSX.Element;
 
 interface Props$3<TData extends MRT_RowData> extends Partial<AlertProps> {
     stackAlertBanner?: boolean;
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToolbarAlertBanner: <TData extends MRT_RowData>({ stackAlertBanner, table, ...rest }: Props$3<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToolbarAlertBanner: <TData extends MRT_RowData>({ stackAlertBanner, table, ...rest }: Props$3<TData>) => react.JSX.Element;
 
 interface Props$2<TData extends MRT_RowData> extends FlexProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToolbarDropZone: <TData extends MRT_RowData>({ table, ...rest }: Props$2<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToolbarDropZone: <TData extends MRT_RowData>({ table, ...rest }: Props$2<TData>) => react.JSX.Element;
 
 interface Props$1<TData extends MRT_RowData> extends FlexProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_ToolbarInternalButtons: <TData extends MRT_RowData>({ table, ...rest }: Props$1<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_ToolbarInternalButtons: <TData extends MRT_RowData>({ table, ...rest }: Props$1<TData>) => react.JSX.Element;
 
 interface Props<TData extends MRT_RowData> extends BoxProps {
     table: MRT_TableInstance<TData>;
 }
-declare const MRT_TopToolbar: <TData extends MRT_RowData>({ table, ...rest }: Props<TData>) => react_jsx_runtime.JSX.Element;
+declare const MRT_TopToolbar: <TData extends MRT_RowData>({ table, ...rest }: Props<TData>) => react.JSX.Element;
 
 declare const useMantineReactTable: <TData extends MRT_RowData>(tableOptions: MRT_TableOptions<TData>) => MRT_TableInstance<TData>;
 
 declare const useMRT_ColumnVirtualizer: <TData extends MRT_RowData, TScrollElement extends Element | Window = HTMLDivElement, TItemElement extends Element = HTMLTableCellElement>(table: MRT_TableInstance<TData>) => MRT_ColumnVirtualizer | undefined;
 
-declare const useMRT_Effects: <TData extends MRT_RowData>(table: MRT_TableInstance<TData>) => void;
+declare const useMRT_Effects: <TData extends MRT_RowData>(table: MRT_TableInstance<TData>, rerenderTable?: () => void) => void;
 
 declare const useMRT_Rows: <TData extends MRT_RowData>(table: MRT_TableInstance<TData>) => MRT_Row<TData>[];
 
@@ -1369,9 +1382,10 @@ declare const useMRT_RowVirtualizer: <TData extends MRT_RowData, TScrollElement 
 /**
  * The MRT hook that wraps the TanStack useReactTable hook and adds additional functionality
  * @param definedTableOptions - table options with proper defaults set
+ * @param rerender - re-renders the owner of the table instance and changes the table reference
  * @returns the MRT table instance
  */
-declare const useMRT_TableInstance: <TData extends MRT_RowData>(definedTableOptions: MRT_DefinedTableOptions<TData>) => MRT_TableInstance<TData>;
+declare const useMRT_TableInstance: <TData extends MRT_RowData>(definedTableOptions: MRT_DefinedTableOptions<TData>, rerender?: () => void) => MRT_TableInstance<TData>;
 
 declare const MRT_DefaultColumn: {
     readonly filterVariant: "text";
@@ -1397,6 +1411,12 @@ declare const useMRT_TableOptions: <TData extends MRT_RowData>(tableOptions: MRT
 
 declare const getColumnId: <TData extends MRT_RowData>(columnDef: MRT_ColumnDef<TData>) => string;
 declare const getAllLeafColumnDefs: <TData extends MRT_RowData>(columns: MRT_ColumnDef<TData>[]) => MRT_ColumnDef<TData>[];
+/**
+ * Marks the placeholder rows that `useMRT_TableInstance` generates for the
+ * loading skeletons. The same `Symbol.for` key is written there.
+ */
+declare const skeletonRowKey: unique symbol;
+declare const isSkeletonRow: (originalRow: unknown) => boolean;
 declare const prepareColumns: <TData extends MRT_RowData>({ columnDefs, tableOptions, }: {
     columnDefs: MRT_ColumnDef<TData>[];
     tableOptions: MRT_DefinedTableOptions<TData>;
@@ -1437,6 +1457,18 @@ declare const getMRT_SelectAllHandler: <TData extends MRT_RowData>({ table }: {
     table: MRT_TableInstance<TData>;
 }) => (event: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>, value?: boolean, forceAll?: boolean) => void;
 
+/** Returns the TanStack instance behind a view, or the object itself. */
+declare const getMRT_ViewTarget: <T extends object>(viewOrTarget: T) => T;
+/**
+ * Creates a view of a TanStack instance.
+ * @param overrides - properties the view answers itself instead of the instance
+ */
+declare const createMRT_View: <T extends object>(viewOrTarget: T, overrides?: Partial<T>) => T;
+declare const getMRT_RowView: <TData extends MRT_RowData>(table: MRT_TableInstance<TData>, row: MRT_Row<TData>) => MRT_Row<TData>;
+declare const getMRT_ColumnView: <TData extends MRT_RowData, TValue = unknown>(table: MRT_TableInstance<TData>, column: MRT_Column<TData, TValue>) => MRT_Column<TData, TValue>;
+declare const getMRT_CellView: <TData extends MRT_RowData, TValue = unknown>(table: MRT_TableInstance<TData>, cell: MRT_Cell<TData, TValue>) => MRT_Cell<TData, TValue>;
+declare const getMRT_HeaderView: <TData extends MRT_RowData>(table: MRT_TableInstance<TData>, header: MRT_Header<TData>) => MRT_Header<TData>;
+
 declare const parseCSSVarId: (id: string) => string;
 declare const getPrimaryShade: (theme: MantineTheme) => number;
 declare const getPrimaryColor: (theme: MantineTheme, shade?: MantineShade) => string;
@@ -1448,9 +1480,9 @@ declare const flexRender: (Comp: Renderable<any>, props: any) => JSX.Element | R
 declare function createMRTColumnHelper<TData extends MRT_RowData>(): MRT_ColumnHelper<TData>;
 declare const createRow: <TData extends MRT_RowData>(table: MRT_TableInstance<TData>, originalRow?: TData, rowIndex?: number, depth?: number, subRows?: MRT_Row<TData>[], parentId?: string) => MRT_Row<TData>;
 
-declare const assignRef: <T>(ref: ((instance: T | null) => void) | {
-    current: T | null;
-} | null | undefined, value: T | null) => void;
+declare const assignRef: <T>(ref: ((instance: null | T) => void) | {
+    current: null | T;
+} | null | undefined, value: null | T) => void;
 declare const parseFromValuesOrFunc: <T, U>(fn: ((arg: U) => T) | T | undefined, arg: U) => T | undefined;
 
-export { type HTMLPropsRef, type LiteralUnion, type MRT_AggregationFn, MRT_AggregationFns, type MRT_AggregationOption, MRT_BottomToolbar, type MRT_Cell, type MRT_CellValue, type MRT_Column, MRT_ColumnActionMenu, type MRT_ColumnDef, type MRT_ColumnFilterFnsState, type MRT_ColumnFiltersState, type MRT_ColumnHelper, type MRT_ColumnOrderState, MRT_ColumnPinningButtons, type MRT_ColumnPinningState, type MRT_ColumnSizingInfoState, type MRT_ColumnSizingState, type MRT_ColumnVirtualizer, MRT_CopyButton, type MRT_CreateTableFeature, MRT_DefaultColumn, MRT_DefaultDisplayColumn, type MRT_DefinedColumnDef, type MRT_DefinedTableOptions, type MRT_DensityState, type MRT_DisplayColumnDef, type MRT_DisplayColumnIds, MRT_EditActionButtons, MRT_EditCellTextInput, MRT_EditRowModal, MRT_ExpandAllButton, MRT_ExpandButton, type MRT_ExpandedState, MRT_FilterCheckbox, type MRT_FilterFn, MRT_FilterFns, type MRT_FilterOption, MRT_FilterOptionMenu, MRT_FilterRangeFields, MRT_FilterRangeSlider, MRT_FilterTextInput, type MRT_FilterTooltipValueFn, MRT_GlobalFilterTextInput, MRT_GrabHandleButton, type MRT_GroupColumnDef, type MRT_GroupingState, type MRT_Header, type MRT_HeaderGroup, type MRT_Icons, type MRT_InternalFilterOption, type MRT_Localization, type MRT_PaginationProps, type MRT_PaginationState, MRT_ProgressBar, type MRT_Row, MRT_RowActionMenu, type MRT_RowData, type MRT_RowModel, MRT_RowPinButton, type MRT_RowSelectionState, type MRT_RowVirtualizer, MRT_SelectCheckbox, MRT_ShowHideColumnsButton, MRT_ShowHideColumnsMenu, MRT_ShowHideColumnsMenuItems, type MRT_SortingFn, MRT_SortingFns, type MRT_SortingOption, type MRT_SortingState, type MRT_StatefulTableOptions, MRT_Table, MRT_TableBody, MRT_TableBodyCell, MRT_TableBodyCellValue, MRT_TableBodyEmptyRow, type MRT_TableBodyProps, MRT_TableBodyRow, MRT_TableBodyRowGrabHandle, MRT_TableBodyRowPinButton, MRT_TableContainer, MRT_TableDetailPanel, MRT_TableFooter, MRT_TableFooterCell, MRT_TableFooterRow, MRT_TableHead, MRT_TableHeadCell, MRT_TableHeadCellFilterContainer, MRT_TableHeadCellFilterLabel, MRT_TableHeadCellGrabHandle, MRT_TableHeadCellResizeHandle, MRT_TableHeadCellSortLabel, MRT_TableHeadRow, type MRT_TableInstance, type MRT_TableOptions, MRT_TablePagination, MRT_TablePaper, type MRT_TableState, MRT_ToggleDensePaddingButton, MRT_ToggleFiltersButton, MRT_ToggleFullScreenButton, MRT_ToggleGlobalFilterButton, MRT_ToggleRowActionMenuButton, MRT_ToolbarAlertBanner, MRT_ToolbarDropZone, MRT_ToolbarInternalButtons, MRT_TopToolbar, type MRT_Updater, type MRT_VirtualItem, type MRT_VirtualizerOptions, type MRT_VisibilityState, MantineReactTable, type MantineShade, Memo_MRT_TableBody, Memo_MRT_TableBodyCell, Memo_MRT_TableBodyRow, type Prettify, type Xor, assignRef, createMRTColumnHelper, createRow, dataVariable, defaultDisplayColumnProps, flexRender, getAllLeafColumnDefs, getCanRankRows, getColumnId, getDefaultColumnFilterFn, getDefaultColumnOrderIds, getIsRankingRows, getIsRowSelected, getLeadingDisplayColumnIds, getMRT_RowSelectionHandler, getMRT_Rows, getMRT_SelectAllHandler, getPrimaryColor, getPrimaryShade, getTrailingDisplayColumnIds, localizedFilterOption, mrtFilterOptions, parseCSSVarId, parseFromValuesOrFunc, prepareColumns, rankGlobalFuzzy, reorderColumn, showRowActionsColumn, showRowDragColumn, showRowExpandColumn, showRowNumbersColumn, showRowPinningColumn, showRowSelectionColumn, showRowSpacerColumn, useMRT_ColumnVirtualizer, useMRT_Effects, useMRT_RowVirtualizer, useMRT_Rows, useMRT_TableInstance, useMRT_TableOptions, useMantineReactTable };
+export { type HTMLDataAttributes, type HTMLPropsRef, type LiteralUnion, type MRT_AggregationFn, MRT_AggregationFns, type MRT_AggregationOption, MRT_BottomToolbar, type MRT_Cell, type MRT_CellValue, type MRT_Column, MRT_ColumnActionMenu, type MRT_ColumnDef, type MRT_ColumnFilterFnsState, type MRT_ColumnFiltersState, type MRT_ColumnHelper, type MRT_ColumnOrderState, MRT_ColumnPinningButtons, type MRT_ColumnPinningState, type MRT_ColumnSizingInfoState, type MRT_ColumnSizingState, type MRT_ColumnVirtualizer, MRT_CopyButton, type MRT_CreateTableFeature, MRT_DefaultColumn, MRT_DefaultDisplayColumn, type MRT_DefinedColumnDef, type MRT_DefinedTableOptions, type MRT_DensityState, type MRT_DisplayColumnDef, type MRT_DisplayColumnIds, MRT_EditActionButtons, MRT_EditCellTextInput, MRT_EditRowModal, MRT_ExpandAllButton, MRT_ExpandButton, type MRT_ExpandedState, MRT_FilterCheckbox, type MRT_FilterFn, MRT_FilterFns, type MRT_FilterOption, MRT_FilterOptionMenu, MRT_FilterRangeFields, MRT_FilterRangeSlider, MRT_FilterTextInput, type MRT_FilterTooltipValueFn, MRT_GlobalFilterTextInput, MRT_GrabHandleButton, type MRT_GroupColumnDef, type MRT_GroupingState, type MRT_Header, type MRT_HeaderGroup, type MRT_Icons, type MRT_InternalFilterOption, type MRT_Localization, type MRT_ModalProps, type MRT_PaginationProps, type MRT_PaginationState, MRT_ProgressBar, type MRT_Row, MRT_RowActionMenu, type MRT_RowData, type MRT_RowModel, MRT_RowPinButton, type MRT_RowSelectionState, type MRT_RowVirtualizer, type MRT_ScrollAreaProps, MRT_SelectCheckbox, MRT_ShowHideColumnsButton, MRT_ShowHideColumnsMenu, MRT_ShowHideColumnsMenuItems, type MRT_SortingFn, MRT_SortingFns, type MRT_SortingOption, type MRT_SortingState, type MRT_StatefulTableOptions, MRT_Table, MRT_TableBody, MRT_TableBodyCell, MRT_TableBodyCellValue, MRT_TableBodyEmptyRow, type MRT_TableBodyProps, MRT_TableBodyRow, MRT_TableBodyRowGrabHandle, MRT_TableBodyRowPinButton, MRT_TableContainer, MRT_TableDetailPanel, MRT_TableFooter, MRT_TableFooterCell, MRT_TableFooterRow, MRT_TableHead, MRT_TableHeadCell, MRT_TableHeadCellFilterContainer, MRT_TableHeadCellFilterLabel, MRT_TableHeadCellGrabHandle, MRT_TableHeadCellResizeHandle, MRT_TableHeadCellSortLabel, MRT_TableHeadRow, type MRT_TableInstance, type MRT_TableOptions, MRT_TablePagination, MRT_TablePaper, type MRT_TableState, MRT_ToggleDensePaddingButton, MRT_ToggleFiltersButton, MRT_ToggleFullScreenButton, MRT_ToggleGlobalFilterButton, MRT_ToggleRowActionMenuButton, MRT_ToolbarAlertBanner, MRT_ToolbarDropZone, MRT_ToolbarInternalButtons, MRT_TopToolbar, type MRT_Updater, type MRT_VirtualItem, type MRT_VirtualizerOptions, type MRT_VisibilityState, MantineReactTable, type MantineShade, Memo_MRT_TableBody, Memo_MRT_TableBodyCell, Memo_MRT_TableBodyRow, type Prettify, type Xor, assignRef, createMRTColumnHelper, createMRT_View, createRow, dataVariable, defaultDisplayColumnProps, flexRender, getAllLeafColumnDefs, getCanRankRows, getColumnId, getDefaultColumnFilterFn, getDefaultColumnOrderIds, getIsRankingRows, getIsRowSelected, getLeadingDisplayColumnIds, getMRT_CellView, getMRT_ColumnView, getMRT_HeaderView, getMRT_RowSelectionHandler, getMRT_RowView, getMRT_Rows, getMRT_SelectAllHandler, getMRT_ViewTarget, getPrimaryColor, getPrimaryShade, getTrailingDisplayColumnIds, isSkeletonRow, localizedFilterOption, mrtFilterOptions, parseCSSVarId, parseFromValuesOrFunc, prepareColumns, rankGlobalFuzzy, reorderColumn, showRowActionsColumn, showRowDragColumn, showRowExpandColumn, showRowNumbersColumn, showRowPinningColumn, showRowSelectionColumn, showRowSpacerColumn, skeletonRowKey, useMRT_ColumnVirtualizer, useMRT_Effects, useMRT_RowVirtualizer, useMRT_Rows, useMRT_TableInstance, useMRT_TableOptions, useMantineReactTable };

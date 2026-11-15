@@ -57,7 +57,7 @@ const MRT_Localization_TR = {
     move: 'Taşı',
     noRecordsToDisplay: 'Gösterilecek Kayıt Yok',
     noResultsFound: 'Herhangi Bir Sonuç Bulunamadı',
-    of: 'of',
+    of: '/',
     or: 'veya',
     pin: 'Sabitle',
     pinToLeft: 'Sola Sabitle',
