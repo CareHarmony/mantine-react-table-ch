@@ -1955,6 +1955,9 @@ const MRT_FilterTextInput = (_a) => {
                 ? ((_a = column.getFilterValue()) === null || _a === void 0 ? void 0 : _a[rangeFilterIndex]) || ''
                 : ((_b = column.getFilterValue()) !== null && _b !== void 0 ? _b : '');
     });
+    //the range value of this input that the table last held. The other range input
+    //changes the same filter array, and that must not reset text typed here.
+    const tableRangeValue = react.useRef(isRangeFilter ? filterValue : '');
     //send filterValue to the table instance once typing pauses. The timer restarts
     //on every change, so text retyped right after a clear is sent again.
     react.useEffect(() => {
@@ -1976,16 +1979,22 @@ const MRT_FilterTextInput = (_a) => {
     }, [filterValue]);
     //receive table filter value and set it to local state
     react.useEffect(() => {
+        var _a;
         if (!isMounted.current) {
             isMounted.current = true;
             return;
         }
         const tableFilterValue = column.getFilterValue();
         if (tableFilterValue === undefined) {
+            tableRangeValue.current = '';
             handleClear();
         }
         else if (isRangeFilter && rangeFilterIndex !== undefined) {
-            setFilterValue((tableFilterValue !== null && tableFilterValue !== void 0 ? tableFilterValue : ['', ''])[rangeFilterIndex]);
+            const next = (_a = (tableFilterValue !== null && tableFilterValue !== void 0 ? tableFilterValue : ['', ''])[rangeFilterIndex]) !== null && _a !== void 0 ? _a : '';
+            if (next !== tableRangeValue.current) {
+                tableRangeValue.current = next;
+                setFilterValue(next);
+            }
         }
         else {
             setFilterValue(tableFilterValue !== null && tableFilterValue !== void 0 ? tableFilterValue : '');
